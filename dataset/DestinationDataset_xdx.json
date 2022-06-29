@@ -1,0 +1,19 @@
+{
+	"name": "DestinationDataset_xdx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DWH_SYNAPSE_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SRC_EXCEL"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "Azure Blob Storage file"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,33 @@
+{
+	"name": "EXCEL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_STORAGE_ACCOUNT_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FILE_NAME": {
+				"type": "string"
+			},
+			"SHEET_NAME": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SRC_EXCEL"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "RLS",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "BI_RLS.xlsx",
+				"container": "manual"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

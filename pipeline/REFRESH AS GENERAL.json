@@ -1,0 +1,118 @@
+{
+	"name": "REFRESH AS GENERAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get List Refresh",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Start AS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderStoredProcedureName": "[ADF].[proc_ETL_REFRESH_SSAS]",
+						"storedProcedureParameters": {
+							"group_name": {
+								"type": "String",
+								"value": "All"
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_DWH_SYNAPSE_ADF",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "ETL_REFRESH_SSAS"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set List_Table",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get List Refresh",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "List_Table",
+					"value": {
+						"value": "@concat(activity('Get List Refresh').output.firstRow.AAA)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Refresh AS",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set List_Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "REFRESH AS",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"RefreshRequestBody": {
+							"value": "@variables('List_Table')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Start AS",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "RESUME AS",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"variables": {
+			"List_Table": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "AZURE AS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-08T11:15:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

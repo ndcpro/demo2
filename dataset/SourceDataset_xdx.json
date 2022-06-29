@@ -1,0 +1,188 @@
+{
+	"name": "SourceDataset_xdx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_STORAGE_ACCOUNT_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SRC_EXCEL"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "calendar.csv",
+				"container": "manual"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DATE_KEY",
+				"type": "String"
+			},
+			{
+				"name": "MONTH_KEY",
+				"type": "String"
+			},
+			{
+				"name": "DATE_NAME",
+				"type": "String"
+			},
+			{
+				"name": "FULL_DATE_VN",
+				"type": "String"
+			},
+			{
+				"name": "DAY_OF_MONTH",
+				"type": "String"
+			},
+			{
+				"name": "DAY_SUFFIX",
+				"type": "String"
+			},
+			{
+				"name": "DAY_NAME",
+				"type": "String"
+			},
+			{
+				"name": "DAY_OF_WEEK_VN",
+				"type": "String"
+			},
+			{
+				"name": "DAY_OF_WEEK_IN_MONTH",
+				"type": "String"
+			},
+			{
+				"name": "DAY_OF_WEEK_IN_YEAR",
+				"type": "String"
+			},
+			{
+				"name": "DAY_OF_QUARTER",
+				"type": "String"
+			},
+			{
+				"name": "DAY_OF_YEAR",
+				"type": "String"
+			},
+			{
+				"name": "WEEK_OF_MONTH",
+				"type": "String"
+			},
+			{
+				"name": "WEEK_OF_QUARTER",
+				"type": "String"
+			},
+			{
+				"name": "WEEK_OF_YEAR",
+				"type": "String"
+			},
+			{
+				"name": "MONTH",
+				"type": "String"
+			},
+			{
+				"name": "MONTH_NAME",
+				"type": "String"
+			},
+			{
+				"name": "MONTH_OF_QUARTER",
+				"type": "String"
+			},
+			{
+				"name": "QUARTER",
+				"type": "String"
+			},
+			{
+				"name": "QUARTER_NAME",
+				"type": "String"
+			},
+			{
+				"name": "YEAR",
+				"type": "String"
+			},
+			{
+				"name": "YEAR_NAME",
+				"type": "String"
+			},
+			{
+				"name": "MONTH_YEAR",
+				"type": "String"
+			},
+			{
+				"name": "MMYYYY",
+				"type": "String"
+			},
+			{
+				"name": "FIRST_DAY_OF_MONTH",
+				"type": "String"
+			},
+			{
+				"name": "LAST_DAY_OF_MONTH",
+				"type": "String"
+			},
+			{
+				"name": "FIRST_DAY_OF_QUARTER",
+				"type": "String"
+			},
+			{
+				"name": "LAST_DAY_OF_QUARTER",
+				"type": "String"
+			},
+			{
+				"name": "FIRST_DAY_OF_YEAR",
+				"type": "String"
+			},
+			{
+				"name": "LAST_DAY_OF_YEAR",
+				"type": "String"
+			},
+			{
+				"name": "IS_WEEKDAY",
+				"type": "String"
+			},
+			{
+				"name": "IS_HOLIDAY_VN",
+				"type": "String"
+			},
+			{
+				"name": "HOLIDAY_VN",
+				"type": "String"
+			},
+			{
+				"name": "DAY_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "W_INTEGRATION_ID",
+				"type": "String"
+			},
+			{
+				"name": "W_DELETE_FLG",
+				"type": "String"
+			},
+			{
+				"name": "W_INSERT_DT",
+				"type": "String"
+			},
+			{
+				"name": "W_UPDATE_DT",
+				"type": "String"
+			},
+			{
+				"name": "W_DATASOURCE_NUM_ID",
+				"type": "String"
+			},
+			{
+				"name": "W_BATCH_ID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

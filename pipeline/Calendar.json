@@ -1,0 +1,493 @@
+{
+	"name": "Calendar",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_xdx",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "manual//calendar.csv"
+					},
+					{
+						"name": "Destination",
+						"value": ".Azure Blob Storage file"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						},
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "LS_STORAGE_ACCOUNT_DEV",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "LS_STORAGE_ACCOUNT_DEV",
+								"type": "LinkedServiceReference"
+							}
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "DATE_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DATE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MONTH_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DATE_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DATE_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FULL_DATE_VN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FULL_DATE_VN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_OF_MONTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_OF_MONTH",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_SUFFIX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_SUFFIX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_OF_WEEK_VN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_OF_WEEK_VN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_OF_WEEK_IN_MONTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_OF_WEEK_IN_MONTH",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_OF_WEEK_IN_YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_OF_WEEK_IN_YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_OF_QUARTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_OF_QUARTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_OF_YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_OF_YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WEEK_OF_MONTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WEEK_OF_MONTH",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WEEK_OF_QUARTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WEEK_OF_QUARTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WEEK_OF_YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WEEK_OF_YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MONTH",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MONTH_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH_OF_QUARTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MONTH_OF_QUARTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "QUARTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "QUARTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "QUARTER_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "QUARTER_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "YEAR_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "YEAR_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH_YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MONTH_YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MMYYYY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MMYYYY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRST_DAY_OF_MONTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FIRST_DAY_OF_MONTH",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_DAY_OF_MONTH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_DAY_OF_MONTH",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRST_DAY_OF_QUARTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FIRST_DAY_OF_QUARTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_DAY_OF_QUARTER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_DAY_OF_QUARTER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRST_DAY_OF_YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FIRST_DAY_OF_YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_DAY_OF_YEAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_DAY_OF_YEAR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IS_WEEKDAY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IS_WEEKDAY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IS_HOLIDAY_VN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IS_HOLIDAY_VN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HOLIDAY_VN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "HOLIDAY_VN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DAY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAY_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "W_INTEGRATION_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "W_INTEGRATION_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "W_DELETE_FLG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "W_DELETE_FLG",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "W_INSERT_DT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "W_INSERT_DT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "W_UPDATE_DT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "W_UPDATE_DT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "W_DATASOURCE_NUM_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "W_DATASOURCE_NUM_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "W_BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "W_BATCH_ID",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_xdx",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_xdx",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-02-08T11:15:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

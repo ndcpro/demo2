@@ -1,0 +1,12 @@
+{
+	"name": "IR-Share",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/d607421b-81ca-426a-8942-2fd12f5c9611/resourcegroups/DWCLOUD-Prod/providers/Microsoft.DataFactory/factories/vus-adf-prod/integrationruntimes/IR-PROD",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

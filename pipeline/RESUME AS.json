@@ -1,0 +1,147 @@
+{
+	"name": "RESUME AS",
+	"properties": {
+		"activities": [
+			{
+				"name": "IfAzureASPaused",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "CheckIfAzureASSuspended",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@not(equals('Succeeded',string(activity('CheckIfAzureASSuspended').output.properties.state)))",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "ResumeAzureAS",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.AnalysisServices/servers/',pipeline().parameters.ServerName,'/resume?api-version=2016-05-16')",
+									"type": "Expression"
+								},
+								"method": "POST",
+								"body": {
+									"value": "@null",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "MSI",
+									"resource": "https://management.azure.com"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "CheckIfAzureASSuspended",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.AnalysisServices/servers/',pipeline().parameters.ServerName,'?api-version=2016-05-16')",
+						"type": "Expression"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.core.windows.net/"
+					}
+				}
+			},
+			{
+				"name": "UntilAzureASResumed",
+				"type": "Until",
+				"dependsOn": [
+					{
+						"activity": "IfAzureASPaused",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals('Succeeded',string(activity('CheckAzureASStatus').output.properties.state))",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "CheckAzureASStatus",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.AnalysisServices/servers/',pipeline().parameters.ServerName,'?api-version=2016-05-16')",
+									"type": "Expression"
+								},
+								"method": "GET",
+								"authentication": {
+									"type": "MSI",
+									"resource": "https://management.azure.com"
+								}
+							}
+						}
+					],
+					"timeout": "7.00:00:00"
+				}
+			}
+		],
+		"parameters": {
+			"TenantID": {
+				"type": "String",
+				"defaultValue": "d1005fc5-bff9-42d5-81e5-1f3fcb089799"
+			},
+			"SubscriptionID": {
+				"type": "String",
+				"defaultValue": "d607421b-81ca-426a-8942-2fd12f5c9611"
+			},
+			"ResourceGroup": {
+				"type": "String",
+				"defaultValue": "DWCLOUD-DEV"
+			},
+			"ServerName": {
+				"type": "String",
+				"defaultValue": "vusasdev"
+			}
+		},
+		"folder": {
+			"name": "AZURE AS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-09T00:57:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
